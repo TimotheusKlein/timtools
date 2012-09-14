@@ -20,6 +20,7 @@
 #
 
 import sqlite3
+import sys
 
 class sqlctrl():
 
@@ -176,7 +177,11 @@ class sqlctrl():
         return self.listit(self.cursor.fetchall())
 
     def executesql(self, sqlstring):
-        trash = self.cursor.execute(sqlstring)
+        try:
+            trash = self.cursor.execute(sqlstring)
+        except:
+            print sys.exc_info()
+            print 'sqlstring: ', sqlstring
 
     def finish(self):
         self.connection.commit()
